@@ -1,11 +1,6 @@
-#' @importFrom dplyr %>%
-#' @import ggplot2
-#' @import ggforce
-NULL
 
-utils::globalVariables(c(
-  "x", "y", "group", "shade", "th"
-))
+#' @importFrom magrittr %>%
+NULL
 
 utils::globalVariables(c("x", "y", "value"))
 utils::globalVariables(c("Horizontal", "Vertical", "Series", "Time"))
