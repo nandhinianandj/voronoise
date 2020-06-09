@@ -1,6 +1,6 @@
 # the three user-facing functions of the package
 
-
+source("./stoneskip.R")
 #' Generate the data specifying a flametree
 #'
 #' @param seed Integer-valued seed for the random number generator
