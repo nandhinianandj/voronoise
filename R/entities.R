@@ -181,4 +181,51 @@ new_entity <- function(x, y, id = NULL, type = NULL, seed = NULL) {
 }
 
 
+#' @export
+#' @rdname entitytype
+entity_beta <- function(seed = use_seed(1), grain = 50, id = NULL, ...) {
+  set.seed(seed)
+  x <- stats::rbeta(n = grain)
+  y <- stats::rbeta(n = grain)
+  entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "beta")
+  entity <- locate_entity(entity, ...)
+  return(entity)
+}
+
+
+#' @export
+#' @rdname entitytype
+entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL, ...) {
+  set.seed(seed)
+  x <- stats::rcauchy(n = grain)
+  y <- stats::rcauchy(n = grain)
+  entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "cauchy")
+  entity <- locate_entity(entity, ...)
+  return(entity)
+}
+
+
+#' @export
+#' @rdname entitytype
+entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL, ...) {
+  set.seed(seed)
+  x <- stats::rhypergeometric(n = grain)
+  y <- stats::rhypergeometric(n = grain)
+  entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "hypergeometric")
+  entity <- locate_entity(entity, ...)
+  return(entity)
+}
+
+
+#' @export
+#' @rdname entitytype
+entity_weibull<- function(seed = use_seed(1), grain = 50, id = NULL, ...) {
+  set.seed(seed)
+  x <- stats::rweibull(n = grain)
+  y <- stats::rweibull(n = grain)
+  entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "weibull")
+  entity <- locate_entity(entity, ...)
+  return(entity)
+}
+
 
