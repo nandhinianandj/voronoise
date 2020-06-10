@@ -17,13 +17,15 @@ style_overlay <- function(pic, border = NULL, fill = NULL, id = NULL, linewidth 
   fillcolour <- fill
   if(is.null(id)) {
 	  group <- 0
+  } else {
+	  group <- factor(id)
   }
   # add hollow fill for seed if requested
   if(!is.null(fillcolour)) {
     pic <- pic +
       ggplot2::geom_polygon(
         data = start,
-        mapping = ggplot2::aes(x = x, y = y, group = factor(id)),
+        mapping = ggplot2::aes(x = x, y = y, group = group),
         inherit.aes = FALSE,
         colour = fillcolour,
         fill = fillcolour,
@@ -36,7 +38,7 @@ style_overlay <- function(pic, border = NULL, fill = NULL, id = NULL, linewidth 
     pic <- pic +
       ggplot2::geom_path(
         data = start,
-        mapping = ggplot2::aes(x = x, y = y, group = factor(id)),
+        mapping = ggplot2::aes(x = x, y = y, group = group),
         inherit.aes = FALSE,
         colour = border,
         show.legend = FALSE,
