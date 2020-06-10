@@ -151,7 +151,7 @@ stoneskip <- function(seed = 1, filename = NULL, grains = 1000,
   }
   str(pal_which)
   # palette is sampled randomly
-  if (isnull(pal_which)) {
+  if (is.null(pal_which)) {
 	  pal_names <- paletteer::palettes_c_names
 	  pal_index <- dqsample::sample(nrow(pal_names), 1)
 	  pal_which <- paste0(
