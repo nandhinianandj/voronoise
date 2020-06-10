@@ -14,7 +14,7 @@ style_overlay <- function(pic, border = NULL, fill = NULL, id = NULL, linewidth 
   } else {
     start <- data
   }
-  group <- factor(start)
+  group <- 1 #factor(start)
   fillcolour <- fill
 
   # add hollow fill for seed if requested
