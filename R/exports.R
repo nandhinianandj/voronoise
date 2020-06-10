@@ -94,7 +94,7 @@ flametree_plot <- function(tree,
   picture <- ggplot2::ggplot(data = tree, mapping = mapping) +
     ggforce::geom_bezier2(show.legend = FALSE, lineend = "round") +
     paletteer::scale_color_paletteer_c(palette = palette) +
-    theme_mono(color = background)
+    theme_mono( background)
 
   return(picture)
 }
@@ -143,7 +143,7 @@ stoneskip <- function(seed = 1, filename = NULL, grains = 1000,
   set.seed(seed)
 
   # import the C++ code
-  Rcpp::sourceCpp("jasmines_src/code.cpp")
+  Rcpp::sourceCpp("src/code.cpp")
 
   # where to save the file
   if(is.null(filename)) {
