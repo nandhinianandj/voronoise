@@ -143,7 +143,7 @@ stoneskip <- function(seed = 1, filename = NULL, grains = 1000,
   set.seed(seed)
 
   # import the C++ code
-  Rcpp::sourceCpp("src/code.cpp")
+  Rcpp::sourceCpp("jasmines_src/code.cpp")
 
   # where to save the file
   if(is.null(filename)) {
