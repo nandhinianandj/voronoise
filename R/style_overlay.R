@@ -7,7 +7,7 @@
 #' @param data Data to be shown in overlay (if NULL, taken from pic)
 #'
 #' @export
-style_overlay <- function(pic, border = NULL, fill = NULL, linewidth = 1, data = NULL) {
+style_overlay <- function(pic, border = NULL, fill = NULL, id = NULL, linewidth = 1, data = NULL) {
 
   if(is.null(data)) {
     start <- dplyr::filter(pic$data, time == 1)
@@ -15,7 +15,9 @@ style_overlay <- function(pic, border = NULL, fill = NULL, linewidth = 1, data =
     start <- data
   }
   fillcolour <- fill
-
+  if(is.null(id)) {
+	  group <- 0
+  }
   # add hollow fill for seed if requested
   if(!is.null(fillcolour)) {
     pic <- pic +

@@ -21,6 +21,7 @@ grow_sapling <- function(startx=0, starty=0) {
 
 # for each existing shoot on the tree, grow an additional shoot that
 # extends it; then prune some of them away
+#' @export
 grow_shoots <- function(time, shoots, param) {
 
   n_shoots <- nrow(shoots)
