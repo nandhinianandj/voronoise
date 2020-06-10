@@ -14,12 +14,9 @@ style_overlay <- function(pic, border = NULL, fill = NULL, id = NULL, linewidth 
   } else {
     start <- data
   }
+  group <- factor(start)
   fillcolour <- fill
-  if(is.null(id)) {
-	  group <- 0
-  } else {
-	  group <- factor(id)
-  }
+
   # add hollow fill for seed if requested
   if(!is.null(fillcolour)) {
     pic <- pic +
