@@ -28,7 +28,6 @@ style_overlay <- function(pic, border = NULL, fill = NULL,
         colour = fillcolour,
         fill = fillcolour,
         show.legend = FALSE,
-	group = group
       )
   }
 
@@ -37,12 +36,11 @@ style_overlay <- function(pic, border = NULL, fill = NULL,
     pic <- pic +
       ggplot2::geom_path(
         data = start,
-        mapping = ggplot2::aes(x = x, y = y), group = 1),
+        mapping = ggplot2::aes(x = x, y = y, group = 1),
         inherit.aes = FALSE,
         colour = border,
         show.legend = FALSE,
         size = linewidth,
-	group = group
       )
   }
 
