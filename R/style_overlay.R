@@ -23,7 +23,7 @@ style_overlay <- function(pic, border = NULL, fill = NULL,
     pic <- pic +
       ggplot2::geom_polygon(
         data = start,
-        mapping = ggplot2::aes(x = x, y = y),#, group = group),
+        mapping = ggplot2::aes(x = x, y = y, group = 1),
         inherit.aes = FALSE,
         colour = fillcolour,
         fill = fillcolour,
@@ -37,7 +37,7 @@ style_overlay <- function(pic, border = NULL, fill = NULL,
     pic <- pic +
       ggplot2::geom_path(
         data = start,
-        mapping = ggplot2::aes(x = x, y = y),#, group = group),
+        mapping = ggplot2::aes(x = x, y = y), group = 1),
         inherit.aes = FALSE,
         colour = border,
         show.legend = FALSE,
