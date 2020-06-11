@@ -7,105 +7,88 @@
 
 <!-- badges: end -->
 
-The goal of voronoise is to make pretty pictures. It is a very minor
-tweak on the voronoi tesselations provided by the `ggforce` package. You
-can install the development version of voronoise from GitHub with:
+This is basically a clone of [djnavarro/voronoise](https://github.com/djnavarro/voronoise) and merged with few other packages from her.
+I've been experimenting with new distributional sampling, using dqsample::sample etc.. as a way of
+teaching myself some R.(I'm a pythonista and data scientist, so need to learn it.)
+
+You can install the development version of voronoise from GitHub with:
+
 
 ``` r
-remotes::install_github("djnavarro/voronoise")
+remotes::install_github("nandhinianandj/voronoise")
 ```
 
 ## Example
 
-Create a tibble with columns specifying the x and y coordinates, and the
-colours to be associated with the corresponding Voronoi cell
+Okay since I've done something of a [general
+mish-mash](https://hitchhikers.fandom.com/wiki/Whole_Sort_of_General_Mish_Mash) of a few of her
+packages. Not nearly enough general or enough whole, but I'm hoping to expand to outside of her work
+too.
 
-``` r
+Anyways, for now if you want to go deeper, I suggest you start with the original [README here](https://github.com/djnavarro/voronoise).
+I'm going to skip that part and jump to my experiments so far.
+
+
+My new attempts and an example of style_overlay:
+```r
+options(scipen=999)  # turn off scientific notation like 1e+06
+library(ggplot2)
 library(voronoise)
-#> Loading required package: ggplot2
-#> Loading required package: ggforce
+library(stringr)
 
-set.seed(1)
+# Init Ggplot
 
-dat <- tibble::tibble(
-  x = runif(n = 50, min = .1, max = .9),
-  y = runif(n = 50, min = .1, max = .9),
-  shade = sample(colours(), size = 50, replace = TRUE)
-)
+circle <- voronoise::entity_circle()
+heart <- voronoise::entity_heart()
 
-dat
-#> # A tibble: 50 x 3
-#>        x     y shade       
-#>    <dbl> <dbl> <chr>       
-#>  1 0.312 0.482 tan         
-#>  2 0.398 0.789 grey43      
-#>  3 0.558 0.450 plum4       
-#>  4 0.827 0.296 rosybrown   
-#>  5 0.261 0.157 grey26      
-#>  6 0.819 0.180 springgreen4
-#>  7 0.856 0.353 gold3       
-#>  8 0.629 0.515 grey68      
-#>  9 0.603 0.630 navajowhite2
-#> 10 0.149 0.425 tomato      
-#> # … with 40 more rows
+beta <- voronoise::entity_beta(grain=5000, shape1=1.1, shape2=1.2)
+cauchy <- voronoise::entity_cauchy(grain=5000, location=0.4, scale=08)
+hypergeom <- voronoise::entity_hypergeometric(grain=5000, m=120, n=380, k=10)
+weibull <- voronoise::entity_weibull(grain=5000, shape=1, scale=1)
+
+createpic <- function (dtype) {
+	p <- ggplot() +  theme_void() +
+	     geom_text(aes(0,0,label='N/A')) +
+	     xlab(NULL)
+
+	today <- as.character(Sys.Date())
+	time <- as.character(Sys.time())
+
+	if (dtype == 'beta') {
+		p <- voronoise::style_overlay(p, border="black", fill="cyan", data=beta)
+		fname <- str_c('beta_dist_', today, time, '.png')
+	} else if (dtype == 'cauchy') {
+		p <- voronoise::style_overlay(p, border="black", fill="cyan", data=cauchy)
+		fname <- str_c('cauchy_dist_', today, time, '.png')
+	} else if (dtype == 'hypergeom') {
+		p <- voronoise::style_overlay(p, border="black", fill="cyan", data=hypergeom)
+		fname <- str_c('hypergeometry_dist_', today, time, '.png')
+	} else {
+		p <- voronoise::style_overlay(p, border="black", fill="cyan", data=weibull)
+		fname <- str_c('weibull_dist_', today, time, '.png')
+	}
+
+	# save the file
+	ggplot2::ggsave(
+	  filename = str_c("creations/", fname),
+	  plot = p,
+	  device = "png",
+	  width = 100/3,
+	  height = 100/3,
+	  dpi = 150
+	)
+
+}
+
+createpic('weibull')
+createpic('hypergeom')
+createpic('beta')
+createpic('cauchy')
+
 ```
 
-The `voronoise_base()` function initialises a ggplot object
 
-``` r
-voronoise_base(dat)
-```
-
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
-
-The default behaviour of `geom_voronoise()` is identical to
-`ggforce::geom_voronoi_tile()` with some parameter values changed. It
-does not perturb the location of any of the tiles:
-
-``` r
-voronoise_base(dat) + 
-  geom_voronoise(fill = "antiquewhite2")
-```
-
-<img src="man/figures/README-boring-1.png" width="100%" />
-
-To perturb the tiles we need to pass it a `perturb` function:
-
-``` r
-voronoise_base(dat) + 
-  geom_voronoise(fill = "antiquewhite2") + 
-  geom_voronoise(perturb = perturb_uniform(.2))  
-```
-
-<img src="man/figures/README-uniform-1.png" width="100%" />
-
-Note that `perturb_uniform()` returns a function. The voronoise package
-comes with a couple of handy functions that will create custom
-perturbing functions. For example:
-
-``` r
-voronoise_base(dat) + 
-  geom_voronoise(fill = "antiquewhite2") + 
-  geom_voronoise(perturb = perturb_float(-90))
-```
-
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
-
-An example using some more settings:
-
-``` r
-set.seed(1)
-voronoise_base(
-  data = voronoise_data(100, viridis::magma(10)), 
-  background = "skyblue3"
-) + 
-  geom_voronoise(fill = "skyblue2") + 
-  geom_voronoise(
-    perturb = perturb_float(
-      angles = c(0, 90, 180), 
-      noise = c(2, 1)
-    )
-  )
-```
-
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-weibull.png" width="100%" />
+<img src="man/figures/README-hypergeometric.png" width="100%" />
+<img src="man/figures/README-beta.png" width="100%" />
+<img src="man/figures/README-cauchy.png" width="100%" />
