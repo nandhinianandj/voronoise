@@ -11,10 +11,10 @@ data("midwest", package = "ggplot2")  # load the data
 circle <- voronoise::entity_circle()
 heart <- voronoise::entity_heart()
 
-beta <- voronoise::entity_beta(grain=500, shape1=1.1, shape2=1.2)
-cauchy <- voronoise::entity_cauchy(grain=500, location=0, scale=1)
-hypergeom <- voronoise::entity_hypergeometric(grain=500, m=120, n=380, k=10)
-weibull <- voronoise::entity_weibull(grain=500, shape=1, scale=1)
+beta <- voronoise::entity_beta(grain=5000, shape1=1.1, shape2=1.2)
+cauchy <- voronoise::entity_cauchy(grain=5000, location=0.4, scale=08)
+hypergeom <- voronoise::entity_hypergeometric(grain=5000, m=120, n=380, k=10)
+weibull <- voronoise::entity_weibull(grain=5000, shape=1, scale=1)
 
 createpic <- function (dtype) {
 	p <- ggplot() +  theme_void() +
