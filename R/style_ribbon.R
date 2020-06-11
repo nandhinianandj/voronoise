@@ -20,6 +20,7 @@ style_ribbon <- function(
   background = "black",
   discard = 0,           # how many of the iterations do we not draw?
   type = "segment",
+  time = 6,
   ...
 ) {
 
