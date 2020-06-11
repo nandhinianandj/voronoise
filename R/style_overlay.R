@@ -7,7 +7,8 @@
 #' @param data Data to be shown in overlay (if NULL, taken from pic)
 #'
 #' @export
-style_overlay <- function(pic, border = NULL, fill = NULL, id = NULL, linewidth = 1, data = NULL) {
+style_overlay <- function(pic, border = NULL, fill = NULL,
+			  id = NULL, linewidth = 1, data = NULL) {
 
   if(is.null(data)) {
     start <- dplyr::filter(pic$data, time == 1)
@@ -22,7 +23,7 @@ style_overlay <- function(pic, border = NULL, fill = NULL, id = NULL, linewidth 
     pic <- pic +
       ggplot2::geom_polygon(
         data = start,
-        mapping = ggplot2::aes(x = x, y = y, group = group),
+        mapping = ggplot2::aes(x = x, y = y)#, group = group),
         inherit.aes = FALSE,
         colour = fillcolour,
         fill = fillcolour,
@@ -35,7 +36,7 @@ style_overlay <- function(pic, border = NULL, fill = NULL, id = NULL, linewidth 
     pic <- pic +
       ggplot2::geom_path(
         data = start,
-        mapping = ggplot2::aes(x = x, y = y, group = group),
+        mapping = ggplot2::aes(x = x, y = y)#, group = group),
         inherit.aes = FALSE,
         colour = border,
         show.legend = FALSE,
