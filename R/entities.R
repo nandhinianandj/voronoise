@@ -211,8 +211,8 @@ entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL,
 entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL,
 				  m = grain/2, n = grain/2, k=2, ...) {
   set.seed(seed)
-  x <- stats::rhypergeometric(nn = grain, m = m, n = n, k = k)
-  y <- stats::rhypergeometric(nn = grain, m = m, n = n, k = k)
+  x <- stats::rhyper(nn = grain, m = m, n = n, k = k)
+  y <- stats::rhyper(nn = grain, m = m, n = n, k = k)
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "hypergeometric")
   entity <- locate_entity(entity, ...)
   return(entity)
