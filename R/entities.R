@@ -195,10 +195,11 @@ entity_beta <- function(seed = use_seed(1), grain = 50, id = NULL, shape1 = 0.3,
 
 #' @export
 #' @rdname entitytype
-entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL, ...) {
+entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL,
+			  location = 0, scale = 1, ...) {
   set.seed(seed)
-  x <- stats::rcauchy(n = grain)
-  y <- stats::rcauchy(n = grain)
+  x <- stats::rcauchy(n = grain, location = location, scale = scale)
+  y <- stats::rcauchy(n = grain, location = location, scale = scale)
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "cauchy")
   entity <- locate_entity(entity, ...)
   return(entity)
@@ -207,10 +208,11 @@ entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL, ...) {
 
 #' @export
 #' @rdname entitytype
-entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL, ...) {
+entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL,
+				  m = grain/2, n = grain/2, k=2, ...) {
   set.seed(seed)
-  x <- stats::rhypergeometric(n = grain)
-  y <- stats::rhypergeometric(n = grain)
+  x <- stats::rhypergeometric(nn = grain, m = m, n = n, k = k)
+  y <- stats::rhypergeometric(nn = grain, m = m, n = n, k = k)
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "hypergeometric")
   entity <- locate_entity(entity, ...)
   return(entity)
@@ -219,10 +221,11 @@ entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL, ...
 
 #' @export
 #' @rdname entitytype
-entity_weibull<- function(seed = use_seed(1), grain = 50, id = NULL, ...) {
+entity_weibull<- function(seed = use_seed(1), grain = 50,
+			  id = NULL, shape = 1, scale = 1, ...) {
   set.seed(seed)
-  x <- stats::rweibull(n = grain)
-  y <- stats::rweibull(n = grain)
+  x <- stats::rweibull(n = grain, shape = shape, scale = scale)
+  y <- stats::rweibull(n = grain, shape = shape, scale = scale)
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "weibull")
   entity <- locate_entity(entity, ...)
   return(entity)
