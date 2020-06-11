@@ -8,7 +8,7 @@
 <!-- badges: end -->
 
 This is basically a clone of [djnavarro/voronoise](https://github.com/djnavarro/voronoise) and merged with few other packages from her.
-I've been experimenting with new distributional sampling, using dqsample::sample etc.. as a way of
+I've been experimenting with new distributional sampling, using `dqsample::sample` etc.. as a way of
 teaching myself some R.(I'm a pythonista and data scientist, so need to learn it.)
 
 You can install the development version of voronoise from GitHub with:
