@@ -27,7 +27,8 @@ style_overlay <- function(pic, border = NULL, fill = NULL,
         inherit.aes = FALSE,
         colour = fillcolour,
         fill = fillcolour,
-        show.legend = FALSE
+        show.legend = FALSE,
+	group = group
       )
   }
 
@@ -40,7 +41,8 @@ style_overlay <- function(pic, border = NULL, fill = NULL,
         inherit.aes = FALSE,
         colour = border,
         show.legend = FALSE,
-        size = linewidth
+        size = linewidth,
+	group = group
       )
   }
 
