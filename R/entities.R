@@ -186,8 +186,8 @@ new_entity <- function(x, y, id = NULL, type = NULL, seed = NULL) {
 entity_beta <- function(seed = use_seed(1), grain = 50, id = NULL,
 			shape1 = 0.3, shape2 = 5, xmax=1000, ymax=800, ...) {
   set.seed(seed)
-  x <- stats::rbeta(n = grain, shape1, shape2)
-  y <- stats::rbeta(n = grain, shape1, shape2)
+  x <- stats::rbeta(n = grain, shape1, shape2) * xmax
+  y <- stats::rbeta(n = grain, shape1, shape2) * ymax
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "beta")
   entity <- locate_entity(entity, ...)
   return(entity)
@@ -199,8 +199,8 @@ entity_beta <- function(seed = use_seed(1), grain = 50, id = NULL,
 entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL,
 			  location = 0, scale = 1, xmax=1000, ymax=800, ...) {
   set.seed(seed)
-  x <- stats::rcauchy(n = grain, location = location, scale = scale)
-  y <- stats::rcauchy(n = grain, location = location, scale = scale)
+  x <- stats::rcauchy(n = grain, location = location, scale = scale) * xmax
+  y <- stats::rcauchy(n = grain, location = location, scale = scale) * ymax
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "cauchy")
   entity <- locate_entity(entity, ...)
   return(entity)
@@ -212,8 +212,8 @@ entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL,
 entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL,
 				  m = grain/2, n = grain/2, k=2, xmax=1000, ymax=800, ...) {
   set.seed(seed)
-  x <- stats::rhyper(nn = grain, m = m, n = n, k = k)
-  y <- stats::rhyper(nn = grain, m = m, n = n, k = k)
+  x <- stats::rhyper(nn = grain, m = m, n = n, k = k) * xmax
+  y <- stats::rhyper(nn = grain, m = m, n = n, k = k) * ymax
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "hypergeometric")
   entity <- locate_entity(entity, ...)
   return(entity)
@@ -225,8 +225,8 @@ entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL,
 entity_weibull<- function(seed = use_seed(1), grain = 50,
 			  id = NULL, shape = 1, scale = 1, xmax=1000, ymax=800, ...) {
   set.seed(seed)
-  x <- stats::rweibull(n = grain, shape = shape, scale = scale)
-  y <- stats::rweibull(n = grain, shape = shape, scale = scale)
+  x <- stats::rweibull(n = grain, shape = shape, scale = scale) * xmax
+  y <- stats::rweibull(n = grain, shape = shape, scale = scale) * ymax
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "weibull")
   entity <- locate_entity(entity, ...)
   return(entity)
