@@ -183,7 +183,8 @@ new_entity <- function(x, y, id = NULL, type = NULL, seed = NULL) {
 
 #' @export
 #' @rdname entitytype
-entity_beta <- function(seed = use_seed(1), grain = 50, id = NULL, shape1 = 0.3, shape2 = 5, ...) {
+entity_beta <- function(seed = use_seed(1), grain = 50, id = NULL,
+			shape1 = 0.3, shape2 = 5, xmax=1000, ymax=800, ...) {
   set.seed(seed)
   x <- stats::rbeta(n = grain, shape1, shape2)
   y <- stats::rbeta(n = grain, shape1, shape2)
@@ -196,7 +197,7 @@ entity_beta <- function(seed = use_seed(1), grain = 50, id = NULL, shape1 = 0.3,
 #' @export
 #' @rdname entitytype
 entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL,
-			  location = 0, scale = 1, ...) {
+			  location = 0, scale = 1, xmax=1000, ymax=800, ...) {
   set.seed(seed)
   x <- stats::rcauchy(n = grain, location = location, scale = scale)
   y <- stats::rcauchy(n = grain, location = location, scale = scale)
@@ -209,7 +210,7 @@ entity_cauchy <- function(seed = use_seed(1), grain = 50, id = NULL,
 #' @export
 #' @rdname entitytype
 entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL,
-				  m = grain/2, n = grain/2, k=2, ...) {
+				  m = grain/2, n = grain/2, k=2, xmax=1000, ymax=800, ...) {
   set.seed(seed)
   x <- stats::rhyper(nn = grain, m = m, n = n, k = k)
   y <- stats::rhyper(nn = grain, m = m, n = n, k = k)
@@ -222,7 +223,7 @@ entity_hypergeometric <- function(seed = use_seed(1), grain = 50, id = NULL,
 #' @export
 #' @rdname entitytype
 entity_weibull<- function(seed = use_seed(1), grain = 50,
-			  id = NULL, shape = 1, scale = 1, ...) {
+			  id = NULL, shape = 1, scale = 1, xmax=1000, ymax=800, ...) {
   set.seed(seed)
   x <- stats::rweibull(n = grain, shape = shape, scale = scale)
   y <- stats::rweibull(n = grain, shape = shape, scale = scale)
