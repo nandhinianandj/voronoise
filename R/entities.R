@@ -184,10 +184,10 @@ new_entity <- function(x, y, id = NULL, type = NULL, seed = NULL) {
 #' @export
 #' @rdname entitytype
 entity_beta <- function(seed = use_seed(1), grain = 50, id = NULL,
-			shape1 = 0.3, shape2 = 5, xmax=1000, ymax=800, ...) {
+			shape1 = 0.3, shape2 = 5, ...) {
   set.seed(seed)
-  x <- stats::rbeta(n = grain, shape1, shape2) * xmax
-  y <- stats::rbeta(n = grain, shape1, shape2) * ymax
+  x <- stats::rbeta(n = grain, shape1, shape2)
+  y <- stats::rbeta(n = grain, shape1, shape2)
   entity <- new_entity(x = x, y = y, id = id, seed = seed, type = "beta")
   entity <- locate_entity(entity, ...)
   return(entity)
