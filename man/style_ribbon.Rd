@@ -12,6 +12,7 @@ style_ribbon(
   background = "black",
   discard = 0,
   type = "segment",
+  time = 6,
   ...
 )
 }

@@ -1,4 +1,5 @@
 
+#' @export
 theme_mono <- function(background = "black"){
   ggplot2::theme_void() +
   ggplot2::theme(
@@ -14,6 +15,7 @@ theme_mono <- function(background = "black"){
 }
 
 
+#' @export
 # #' Like coord_fixed() but forced to be a square
 # #'
 # #' @param x bottom side of the square

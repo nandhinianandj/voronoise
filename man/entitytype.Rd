@@ -37,13 +37,48 @@ entity_gaussian(seed = use_seed(1), grain = 50, id = NULL, ...)
 
 entity_null(seed = use_seed(1), ...)
 
-entity_beta(seed = use_seed(1), grain = 50, id = NULL, ...)
+entity_beta(
+  seed = use_seed(1),
+  grain = 50,
+  id = NULL,
+  shape1 = 0.3,
+  shape2 = 5,
+  ...
+)
 
-entity_cauchy(seed = use_seed(1), grain = 50, id = NULL, ...)
+entity_cauchy(
+  seed = use_seed(1),
+  grain = 50,
+  id = NULL,
+  location = 0,
+  scale = 1,
+  xmax = 1000,
+  ymax = 800,
+  ...
+)
 
-entity_hypergeometric(seed = use_seed(1), grain = 50, id = NULL, ...)
+entity_hypergeometric(
+  seed = use_seed(1),
+  grain = 50,
+  id = NULL,
+  m = grain/2,
+  n = grain/2,
+  k = 2,
+  xmax = 1000,
+  ymax = 800,
+  ...
+)
 
-entity_weibull(seed = use_seed(1), grain = 50, id = NULL, ...)
+entity_weibull(
+  seed = use_seed(1),
+  grain = 50,
+  id = NULL,
+  shape = 1,
+  scale = 1,
+  xmax = 1000,
+  ymax = 800,
+  ...
+)
 }
 \arguments{
 \item{seed}{Parameter specifying seed (default = NULL)}
