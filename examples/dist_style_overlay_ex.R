@@ -5,7 +5,7 @@ library(voronoise)
 library(stringr)
 
 # Init Ggplot
-grainsize <- 10000
+grainsize <- 100000
 circle <- voronoise::entity_circle(grain=grainsize)
 heart <- voronoise::entity_heart(grain=grainsize)
 
@@ -47,8 +47,8 @@ create_overlay_pic <- function (dtype) {
 	  filename = str_c("creations/", fname),
 	  plot = p,
 	  device = "png",
-	  width = 100/3,
-	  height = 100/3,
+	  width = 49,
+	  height = 49,
 	  dpi = 150
 	)
 
