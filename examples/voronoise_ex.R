@@ -1,8 +1,8 @@
 library(voronoise)
 library(stringr)
 library(dplyr)
-
-function filled_voronoise_trees() {
+library(viridis)
+filled_voronoise_trees <- function () {
 	set.seed(1)
 
 	dat <- tibble::tibble(
@@ -42,15 +42,15 @@ function filled_voronoise_trees() {
 
 	today <- as.character(Sys.Date())
 	time <- as.character(Sys.time())
-	fname <- str_c('creations/','filled_voronoi_trees_', today, time, '.png')
+	fname <- str_c('creations/','filled_voronoi_trees_', today, '_', time, '.png')
 	ggsave(fname)
 
 }
 
-function voronoise_blobs() {
+voronoise_blobs <- function () {
 
 	set.seed(1)
-	data <- voronoise_data(5000, viridis::magma(10))
+	data <- voronoise_data(10000, viridis::magma(100))
 	voronoise_base(
 	  data = data, #unfold_meander(data=data),
 	  background = "pink1"
@@ -70,10 +70,10 @@ function voronoise_blobs() {
 }
 
 
-function jasmine_scenes (){
+jasmine_scenes <- function (){
 	use_seed(1) %>%
 	  scene_discs(
-	    rings = 3, points = 5000, size = 5
+	    rings = 3, points = 10000, size = 5
 	  ) %>%
 	  mutate(ind = 1:n()) %>%
 	  unfold_warp(
@@ -93,22 +93,22 @@ function jasmine_scenes (){
 	  )
 	}
 
-function stoneskip() {
+stoneskip <- function () {
 	today <- as.character(Sys.Date())
 	time <- as.character(Sys.time())
 	fname <- str_c('stoneskip_', today, '_', time, '.png')
 
-	voronoise::stoneskip(seed=1, grains=1000, pixels=10000, shades=5000,
-			     filename=str_c("../creations/", fname))
+	voronoise::stoneskip(seed=1, grains=10000, pixels=10000, shades=500,
+			     filename=str_c("creations/", fname))
 				#pal_which="viridis::inferno")
-	}
+}
 
 
 
-function flametree_ex() {
-	dat <- voronoise::flametree_grow(seed = 10, time = 2,
-					 angle=seq(0, 90, by=1), scale = c(0.9,0.95),
-					 prune=0.01, split=5) # data structure
+flametree_ex <- function () {
+	dat <- voronoise::flametree_grow(seed = 10, time = 35,
+					 angle=seq(30, 150, by=1), scale = c(0.9,0.95),
+					 prune=0.1, split=5) # data structure
 	img <- voronoise::flametree_plot(tree = dat)          # ggplot object
 	p <- plot(img)
 
@@ -118,7 +118,7 @@ function flametree_ex() {
 	fname <- str_c('flametree_vtree_', today, time, '.png')
 	# save the file
 	voronoise::export_image(
-	  filename = str_c("./creations/", fname),
+	  filename = str_c("creations/", fname),
 	  input = p,
 	  width = 100/3,
 	  height = 100/3,
@@ -126,7 +126,7 @@ function flametree_ex() {
 	)
 }
 
-function voronoi_tree_ex() {
+voronoi_tree_ex <- function () {
 
 	# set seed
 	seed <- 1
@@ -135,6 +135,7 @@ function voronoi_tree_ex() {
 	# the "flametree" itself
 	ftree <- voronoise::flametree_grow(
 	  seed = seed,
+	  time = 35,
 	  angle = c(-2:4) * 10,
 	  scale = c(.6, .8, .9)
 	)
@@ -216,11 +217,23 @@ function voronoi_tree_ex() {
 	fname <- str_c('vtree_', today, time, '.jpeg')
 	# save the file
 	ggsave(
-	  filename = str_c("./creations/", fname),
+	  filename = str_c("creations/", fname),
 	  plot = p,
 	  width = 100/3,
 	  height = 100/3,
 	  dpi = 150
 	)
 
-	}
+}
+
+filled_voronoise_trees()
+gc()
+voronoise_blobs()
+gc()
+#stoneskip()
+#gc()
+flametree_ex()
+gc()
+voronoi_tree_ex()
+gc()
+jasmine_scenes()
