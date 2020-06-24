@@ -4,14 +4,7 @@
 \alias{as_hex}
 \title{Convert image to hex}
 \usage{
-as_hex(
-  from,
-  to,
-  text_label = NULL,
-  text_colour = "white",
-  border_colour = "grey20",
-  border_opacity = 60
-)
+as_hex(image, background = "white")
 }
 \arguments{
 \item{from}{Path to original file}
