@@ -3,9 +3,14 @@ library(stringr)
 library(ggplot2)
 library(dplyr)
 library(hash)
+library(foreach)
+library(doParallel)
 
-possible_times <- 15:25
-possible_splits <- 6:10
+numCores <- 4
+registerDoParallel(numCores)
+
+possible_times <- 1:5
+possible_splits <- 2:3
 combo <- expand.grid(possible_times, possible_splits)
 
 
@@ -32,17 +37,17 @@ dists['cauchy'] = cauchy
 dists['hypergeom'] = hypergeom
 dists['weibull'] = weibull
 
-create_flametree <- function (combo) { #time, split, dist) {
-	print(combo)
-	time <- combo[1, 'Var1']
-	split <- combo[1, 'Var2']
-
+create_flametree <- function (time, split) { #time, split, dist) {
+	#time <- comb[1, 'Var1']
+	#split <- comb[1, 'Var2']
+	print(time)
+	print(split)
 	dat <- flametree_grow(seed = 5005, time = time, angle=seq(0, 120, by=1),
 		      scale = c(0.9, 0.95), prune=0.15, split=split) # data structure
 
 	img <- flametree_plot(tree = dat, background="pink", palette="viridis::inferno") # ggplot object
 	#overlay <- sample(c('beta', 'cauchy', 'hypergeom', 'weibull'), 1)
-	img <- voronoise::style_overlay(img, fill="pink", data=dist)
+	img <- voronoise::style_overlay(img, fill="pink", data=beta)
 
 
 	today <- as.character(Sys.Date())
@@ -56,10 +61,13 @@ create_flametree <- function (combo) { #time, split, dist) {
 	  height = 100/3,
 	  dpi = 150
 	)
-	gc()
 }
-
-lapply(combo, create_flametree)
+sapply(possible_times, function(x) sapply(possible_splits, function(y) create_flametree(x, y)))
+#foreach(comb= combo) %dopar% {
+# print(comb)
+# create_flametree(comb)
+# gc()
+#}
 #for (row  in 1:nrow(combo)){
 #	for (dist in ls(dists)) {
 #		time <- combo[row, 'Var1']

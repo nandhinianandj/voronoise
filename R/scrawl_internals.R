@@ -27,12 +27,12 @@ scrawl_new <- function(options) {
 
 
 
-scrawl_modify <- function(state, options) {
+scrawl_modify <- function(state, options, gen=ambient::gen_simplex) {
 
   # Use the curl_noise function from the ambient package to select
   # directions/distances to "step" each of the brushes in 3D space
   step <- ambient::curl_noise(
-    generator = ambient::gen_simplex,
+    generator = gen, #ambient::gen_simplex,
     x = state$x,
     y = state$y,
     z = state$z,

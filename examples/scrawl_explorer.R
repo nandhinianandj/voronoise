@@ -3,8 +3,8 @@ library(stringr)
 library(hash)
 
 options(bitmapType="cairo") # Device change to support semi-transparency
-possible_paths <- seq(3000,15000, by=3000)
-possible_steps <- 19:20
+possible_paths <- seq(30000,60000, by=5000)
+possible_steps <- 20:25
 
 possible_pals <- c('acton', 'bamako', 'batlow', 'berlin', 'bilbao', 'broc', 'brocO', 'buda', 'cork', 'corkO', 'davos', 'devon', 'grayC', 'hawaii', 'imola', 'lajolla', 'lapaz', 'lisbon', 'nuuk', 'oleron', 'oslo', 'roma', 'romaO', 'tofino', 'tokyo', 'turku', 'vik', 'vikO')
 combo <- expand.grid(possible_paths, possible_steps, 1:length(possible_pals))
@@ -32,7 +32,9 @@ dists['weibull'] = weibull
 
 
 
-scrawl_draw <- function(path, step, palette) {
+scrawl_draw <- function(path, step, palette=25) {
+	print(path)
+	print(step)
 	scrawl <- voronoise::scrawl_build(seed=1, n_paths=path, n_steps=step, sz_step=50, sz_slip=5)
 
 	time <- as.character(Sys.time())
@@ -44,13 +46,14 @@ scrawl_draw <- function(path, step, palette) {
 
 }
 
+sapply(possible_paths, function(x) sapply(possible_steps, function(y) scrawl_draw(x, y, 24)))
 
-for (row  in 1:nrow(combo)){
-	#for (dist in ls(dists)) {
-		time <- combo[row, 'Var1']
-		split <- combo[row, 'Var2']
-		palette <- combo[row, 'Var3']
-		scrawl_draw(time, split, palette)
-		gc()
-	#}
-}
+#for (row  in 1:nrow(combo)){
+#	#for (dist in ls(dists)) {
+#		time <- combo[row, 'Var1']
+#		split <- combo[row, 'Var2']
+#		palette <- combo[row, 'Var3']
+#		scrawl_draw(time, split, palette)
+#		gc()
+#	#}
+#}

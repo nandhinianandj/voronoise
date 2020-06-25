@@ -4,10 +4,9 @@
 NULL
 
 utils::globalVariables(c(
-  "x", "y", "group", "shade", "th"
+  "x", "y", "z", "step_id", "path_id", "group", "shade", "th", "value"
 ))
 
-utils::globalVariables(c("x", "y", "value"))
 utils::globalVariables(c("Horizontal", "Vertical", "Series", "Time"))
 utils::globalVariables(c(".", "V1", "V2", "V3", "V4", "V5", "V6", "aes",
                          "char_ind", "id", "series", "time", "x2", "xpos", "y2", "ypos"))
