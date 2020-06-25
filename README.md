@@ -92,3 +92,5 @@ createpic('cauchy')
 <img src="man/figures/README-hypergeometric.png" width="100%" />
 <img src="man/figures/README-beta.png" width="100%" />
 <img src="man/figures/README-cauchy.png" width="100%" />
+<img src="man/figures/README-scrawl-spheres.jpeg" width="100%" />
+<img src="man/figures/README-scrawl-default.jpeg" width="100%" />
