@@ -9,7 +9,7 @@
 #' @return A tibble
 #' @export
 scrawl_build <- function(seed = 1, n_paths = 1000, n_steps = 50,
-                         sz_step = 50, sz_slip = 5) {
+                         sz_step = 50, sz_slip = 5, gen=gen) {
 
   options <- list(
     seed = seed,        # RNG seed
@@ -25,7 +25,7 @@ scrawl_build <- function(seed = 1, n_paths = 1000, n_steps = 50,
   # yes this loop could be vectorised: I've left it as is
   # to better match the original art tutorial
   for(step in 1:options$n_steps) {
-    state <- scrawl_modify(state = state, options = options)
+    state <- scrawl_modify(state = state, options = options, gen=gen)
     scrawl <- dplyr::bind_rows(scrawl, state)
   }
 
