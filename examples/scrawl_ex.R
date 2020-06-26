@@ -12,8 +12,8 @@ droplet <- voronoise::entity_droplet(seed=use_seed(1), xpos=xpos, ypos=ypos)
 
 beta <- voronoise::entity_beta(grain=5000, shape1=1.1, shape2=1.2, xpos=xpos, ypos=ypos)
 
-scrawl <- voronoise::scrawl_build(seed=1, n_paths=10000, n_steps=30,
-				  sz_step=50, sz_slip=5, gen=ambient::gen_spheres)
+scrawl <- voronoise::scrawl_build(seed=1, n_paths=50000, n_steps=50,
+				  sz_step=50, sz_slip=5, gen=ambient::gen_simplex)
 
 
 time <- as.character(Sys.time())

@@ -1,6 +1,7 @@
-library(voronoise)
-library(stringr)
+library(ambient)
 library(hash)
+library(stringr)
+library(voronoise)
 
 options(bitmapType="cairo") # Device change to support semi-transparency
 possible_paths <- seq(30000,60000, by=5000)
@@ -8,6 +9,8 @@ possible_steps <- 20:25
 
 possible_pals <- c('acton', 'bamako', 'batlow', 'berlin', 'bilbao', 'broc', 'brocO', 'buda', 'cork', 'corkO', 'davos', 'devon', 'grayC', 'hawaii', 'imola', 'lajolla', 'lapaz', 'lisbon', 'nuuk', 'oleron', 'oslo', 'roma', 'romaO', 'tofino', 'tokyo', 'turku', 'vik', 'vikO')
 combo <- expand.grid(possible_paths, possible_steps, 1:length(possible_pals))
+
+generators <- c(ambient::gen_worley, ambient::gen_value, ambient::gen_white, ambient::gen_cubic, ambient::gen_perlin, ambient::gen_checkerboard, ambient::gen_waves, ambient::gen_simplex)
 ## Entities for style  overlay/ribbon
 xpos <- 0
 ypos <- 0
@@ -32,10 +35,10 @@ dists['weibull'] = weibull
 
 
 
-scrawl_draw <- function(path, step, palette=25) {
+scrawl_draw <- function(path, step, palette=25, gen=ambient::gen_worley) {
 	print(path)
 	print(step)
-	scrawl <- voronoise::scrawl_build(seed=1, n_paths=path, n_steps=step, sz_step=50, sz_slip=5)
+	scrawl <- voronoise::scrawl_build(seed=1, n_paths=path, n_steps=step, sz_step=50, sz_slip=5, gen=gen)
 
 	time <- as.character(Sys.time())
 	fname <- str_c('./creations/', 'scrawl_', time, '.jpeg')
