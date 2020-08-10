@@ -55,8 +55,8 @@ for (row  in 1:nrow(combo)){
 		time <- combo[row, 'Var1']
 		split <- combo[row, 'Var2']
 		palette <- combo[row, 'Var3']
-		generator <- dqsample::sample(generators)
-
+		#generator <- dqsample::sample(generators)
+		generator <-  ambient::gen_worley
 		scrawl_draw(time, split, palette, gen=generator)
 		gc()
 	#}

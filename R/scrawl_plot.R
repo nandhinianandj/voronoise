@@ -6,7 +6,15 @@
 #'
 #' @return A ggplot object
 #' @export
-scrawl_plot <- function(data, palette = "grayC") {
+scrawl_plot <- function(data, palette = "grayC", dist=NULL, fill=NULL) {
+
+  if(is.null(data)) {
+    start <- dplyr::filter(pic$data, time == 1)
+  } else {
+    start <- data
+  }
+  group <- 1 #factor(start)
+  fillcolour <- fill
 
   picture <- ggplot2::ggplot(
     data = data,        # the data
@@ -26,5 +34,17 @@ scrawl_plot <- function(data, palette = "grayC") {
     ggplot2::theme_void() +   # use a blank theme
     scico::scale_color_scico(palette = palette) # set the color scheme
 
+
+  if(!is.null(fillcolour)) {
+    picture <- picture +
+      ggplot2::geom_polygon(
+        data = start,
+        mapping = ggplot2::aes(x = x, y = y, group = 1),
+        inherit.aes = FALSE,
+        colour = fillcolour,
+        fill = fillcolour,
+        show.legend = FALSE,
+      )
+  }
   return(picture)
 }
