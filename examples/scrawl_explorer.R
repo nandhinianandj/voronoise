@@ -36,14 +36,14 @@ dists['weibull'] = weibull
 
 
 
-scrawl_draw <- function(path, step, palette=25, gen=ambient::gen_worley) {
+scrawl_draw <- function(path, step, palette=25, gen=ambient::gen_worley,
+			dist=dist, fill="pink") {
 	scrawl <- voronoise::scrawl_build(seed=1, n_paths=path, n_steps=step, sz_step=50, sz_slip=5, gen=gen)
 
 	time <- as.character(Sys.time())
 	fname <- str_c('./creations/', 'scrawl_', time, '.jpeg')
 
-	#img <- voronoise::style_overlay(scrawl, fill="pink", data=dists$dist)
-	plot <- scrawl_plot(scrawl, palette=possible_pals[palette])
+	plot <- scrawl_plot(scrawl, palette=possible_pals[palette], dist=dist)
 	voronoise::scrawl_save(plot, fname, pixels=5000)
 
 }
@@ -57,7 +57,8 @@ for (row  in 1:nrow(combo)){
 		palette <- combo[row, 'Var3']
 		#generator <- dqsample::sample(generators)
 		generator <-  ambient::gen_worley
-		scrawl_draw(time, split, palette, gen=generator)
+		dist <- droplet
+		scrawl_draw(time, split, palette, gen=generator, dist=dist, fill="pink")
 		gc()
 	#}
 }

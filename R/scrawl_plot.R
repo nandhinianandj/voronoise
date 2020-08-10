@@ -9,7 +9,7 @@
 scrawl_plot <- function(data, palette = "grayC", dist=NULL, fill=NULL) {
 
   if(is.null(data)) {
-    start <- dplyr::filter(pic$data, time == 1)
+    start <- dplyr::filter(data$dist, time == 1)
   } else {
     start <- data
   }
