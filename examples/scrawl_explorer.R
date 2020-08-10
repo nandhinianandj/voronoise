@@ -2,6 +2,7 @@ library(ambient)
 library(hash)
 library(stringr)
 library(voronoise)
+library(dqsample)
 
 options(bitmapType="cairo") # Device change to support semi-transparency
 possible_paths <- seq(30000,60000, by=5000)
@@ -36,8 +37,6 @@ dists['weibull'] = weibull
 
 
 scrawl_draw <- function(path, step, palette=25, gen=ambient::gen_worley) {
-	print(path)
-	print(step)
 	scrawl <- voronoise::scrawl_build(seed=1, n_paths=path, n_steps=step, sz_step=50, sz_slip=5, gen=gen)
 
 	time <- as.character(Sys.time())
@@ -49,14 +48,16 @@ scrawl_draw <- function(path, step, palette=25, gen=ambient::gen_worley) {
 
 }
 
-sapply(possible_paths, function(x) sapply(possible_steps, function(y) scrawl_draw(x, y, 24)))
+#sapply(possible_paths, function(x) sapply(possible_steps, function(y) scrawl_draw(x, y, 24)))
 
-#for (row  in 1:nrow(combo)){
-#	#for (dist in ls(dists)) {
-#		time <- combo[row, 'Var1']
-#		split <- combo[row, 'Var2']
-#		palette <- combo[row, 'Var3']
-#		scrawl_draw(time, split, palette)
-#		gc()
-#	#}
-#}
+for (row  in 1:nrow(combo)){
+	#for (dist in ls(dists)) {
+		time <- combo[row, 'Var1']
+		split <- combo[row, 'Var2']
+		palette <- combo[row, 'Var3']
+		generator <- dqsample::sample(generators)
+
+		scrawl_draw(time, split, palette, gen=generator)
+		gc()
+	#}
+}
