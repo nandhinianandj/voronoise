@@ -3,14 +3,15 @@ library(stringr)
 library(ggplot2)
 library(dplyr)
 library(hash)
-library(foreach)
-library(doParallel)
+#library(foreach)
+#library(doParallel)
 
-numCores <- 4
-registerDoParallel(numCores)
+#numCores <- 4
+#registerDoParallel(numCores)
 
-possible_times <- 1:5
-possible_splits <- 2:3
+possible_times <- 5:7
+possible_splits <- 3:6
+possible_pals <- c("viridis::inferno", "viridis::magma", "viridis::plasma", "viridis::cividis", "viridis::viridis")
 combo <- expand.grid(possible_times, possible_splits)
 
 
@@ -28,26 +29,21 @@ cauchy <- voronoise::entity_cauchy(grain=5000, location=0.4, scale=08, xpos=xpos
 hypergeom <- voronoise::entity_hypergeometric(grain=5000, m=120, n=380, k=10, xpos=xpos, ypos=ypos)
 weibull <- voronoise::entity_weibull(grain=5000, shape=1, scale=1)
 
-dists <- hash()
-dists['circle'] = circle
-dists['heart'] = heart
-dists['droplet'] = droplet
-dists['beta'] = beta
-dists['cauchy'] = cauchy
-dists['hypergeom'] = hypergeom
-dists['weibull'] = weibull
+dists <- c(circle, heart, droplet, beta, cauchy, hypergeom, weibull)
+#dists['circle'] = circle
+#dists['heart'] = heart
+#dists['droplet'] = droplet
+#dists['beta'] = beta
+#dists['cauchy'] = cauchy
+#dists['hypergeom'] = hypergeom
+#dists['weibull'] = weibull
 
-create_flametree <- function (time, split) { #time, split, dist) {
-	#time <- comb[1, 'Var1']
-	#split <- comb[1, 'Var2']
-	print(time)
-	print(split)
+create_flametree <- function (time, split, palette="viridis::inferno", dist=beta) { #time, split, dist) {
 	dat <- flametree_grow(seed = 5005, time = time, angle=seq(0, 120, by=1),
 		      scale = c(0.9, 0.95), prune=0.15, split=split) # data structure
-
-	img <- flametree_plot(tree = dat, background="pink", palette="viridis::inferno") # ggplot object
+	img <- flametree_plot(tree = dat, background="pink", palette=palette) # ggplot object
 	#overlay <- sample(c('beta', 'cauchy', 'hypergeom', 'weibull'), 1)
-	img <- voronoise::style_overlay(img, fill="pink", data=beta)
+	img <- voronoise::style_overlay(img, fill="pink", data=dist)
 
 
 	today <- as.character(Sys.Date())
@@ -62,17 +58,16 @@ create_flametree <- function (time, split) { #time, split, dist) {
 	  dpi = 150
 	)
 }
-sapply(possible_times, function(x) sapply(possible_splits, function(y) create_flametree(x, y)))
-#foreach(comb= combo) %dopar% {
-# print(comb)
-# create_flametree(comb)
-# gc()
-#}
-#for (row  in 1:nrow(combo)){
+
+for (row  in 1:nrow(combo)){
 #	for (dist in ls(dists)) {
-#		time <- combo[row, 'Var1']
-#		split <- combo[row, 'Var2']
-#		create_flametree(time, split, dist=dists[dist])
-#		gc()
+		time <- combo[row, 'Var1']
+		split <- combo[row, 'Var2']
+		#palette <- combo[row, 'Var3']
+		palette <- sample(possible_pals)
+		dist <- sample(dists)
+		create_flametree(time, split,
+				 palette=palette, dist=droplet)
+		gc()
 #	}
-#}
+}

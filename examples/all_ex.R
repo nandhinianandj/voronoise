@@ -2,6 +2,7 @@ library(voronoise)
 library(stringr)
 library(dplyr)
 library(viridis)
+options(bitmapType="cairo") # Device change to support semi-transparency
 filled_voronoise_trees <- function () {
 	set.seed(1)
 
@@ -215,6 +216,34 @@ voronoi_tree_ex <- function () {
 	today <- as.character(Sys.Date())
 	time <- as.character(Sys.time())
 	fname <- str_c('vtree_', today, time, '.jpeg')
+	# save the file
+	ggsave(
+	  filename = str_c("creations/", fname),
+	  plot = p,
+	  width = 100/3,
+	  height = 100/3,
+	  dpi = 150
+	)
+
+}
+
+scope_ex <- function() {
+	dat <- scope_grid(
+  		border = scope_hex(),
+  		inner = scope_texture(
+  		  noise = ambient::gen_simplex,
+  		  frequency = 50
+  		),
+  		outer = scope_texture(
+  		  noise = ambient::gen_simplex,
+  		  frequency = 10
+  		)
+        )
+	dat
+	p<-voronoise::scope_plot(dat)
+	today <- as.character(Sys.Date())
+	time <- as.character(Sys.time())
+	fname <- str_c('scope_', today, time, '.jpeg')
 	# save the file
 	ggsave(
 	  filename = str_c("creations/", fname),

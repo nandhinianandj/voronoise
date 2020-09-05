@@ -41,7 +41,7 @@ scrawl_plot <- function(data, palette = "grayC", dist=NULL, fill=NULL) {
         data = start,
         mapping = ggplot2::aes(x = x, y = y, group = 1),
         inherit.aes = FALSE,
-        colour = fillcolour,
+        colour = "black",
         fill = fillcolour,
         show.legend = FALSE,
       )

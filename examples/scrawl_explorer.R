@@ -56,7 +56,7 @@ for (row  in 1:nrow(combo)){
 		split <- combo[row, 'Var2']
 		palette <- combo[row, 'Var3']
 		#generator <- dqsample::sample(generators)
-		generator <-  ambient::gen_worley
+		generator <-  ambient::gen_simplex
 		dist <- droplet
 		scrawl_draw(time, split, palette, gen=generator, dist=dist, fill="pink")
 		gc()
